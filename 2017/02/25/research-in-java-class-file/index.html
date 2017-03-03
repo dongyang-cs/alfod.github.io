@@ -1,0 +1,675 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Microsoft YaHei:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,jvm," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="PreludeJava class file ( produced by java compiler ,  whose naming format is *.class ) can be executed by Java Virtual Machine  ( also called JVM  ) .  For JVM is available for many platforms , java l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="research in java class file">
+<meta property="og:url" content="http://yoursite.com/2017/02/25/research-in-java-class-file/index.html">
+<meta property="og:site_name" content="Arvin Alfod">
+<meta property="og:description" content="PreludeJava class file ( produced by java compiler ,  whose naming format is *.class ) can be executed by Java Virtual Machine  ( also called JVM  ) .  For JVM is available for many platforms , java l">
+<meta property="og:updated_time" content="2017-02-26T12:50:02.828Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="research in java class file">
+<meta name="twitter:description" content="PreludeJava class file ( produced by java compiler ,  whose naming format is *.class ) can be executed by Java Virtual Machine  ( also called JVM  ) .  For JVM is available for many platforms , java l">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> research in java class file | Arvin Alfod </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Arvin Alfod</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                research in java class file
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-02-25T21:40:59+08:00" content="2017-02-25">
+              2017-02-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Prelude"><a href="#Prelude" class="headerlink" title="Prelude"></a>Prelude</h1><p>Java class file ( produced by java compiler ,  whose naming format is *.class ) can be executed by <em>Java Virtual Machine</em>  ( also called <strong>JVM</strong>  ) .  For JVM is available for many platforms , java language obtain its precious features  <strong>Platforms Independent</strong> which means <strong>once write , run anywhere</strong>.<br>Many java programmers can be curious about it , let’s share a journey of exploration !<br>For purpose of  giving a profile to beginners , this blog will focus on the analysis  of source code . not  the comprehensive illuminate of JVM .</p>
+<h1 id="Class-File-Structure"><a href="#Class-File-Structure" class="headerlink" title="Class File Structure"></a>Class File Structure</h1><ul>
+<li><p><strong>Magic  Number</strong><br>Only java class file’s first 4 bytes code is｜ “0xCAFEBABE” , which give JVM a fast way to verify a file’s format  .</p>
+</li>
+<li><p><strong>Version Number</strong><br>The next 4 bytes indicate the java version of this class file , in which the first two bytes represented minor version name , while  the other two bytes represented major version .</p>
+</li>
+<li><p><strong>Constant pool</strong><br>This section can be broken into two parts ,  pool count in first 2 bytes and the rest  is constant pool table , which store Strings , numbers  and references to classes and methods .</p>
+</li>
+</ul>
+<h1 id="Basic-Tools"><a href="#Basic-Tools" class="headerlink" title="Basic Tools"></a>Basic Tools</h1><ul>
+<li><p><em>javac  $SourceFilePath</em></p>
+<pre><code>javac will compile java code to class file .
+</code></pre></li>
+<li><p><em>javap -verbose $ClassPath</em>      </p>
+<pre><code>javap  will disassembles a class file to  human-readable  format , we will analyze the result file to understand how class file describe  the java source code
+</code></pre></li>
+</ul>
+<h1 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h1><ul>
+<li><strong>Simplest Function</strong></li>
+</ul>
+<p><em>Source Code</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public int additionFromTo(int a, int b) &#123;</div><div class="line">        for (int i = a; i &lt; b; i++) &#123;</div><div class="line">            a=b+a+i;</div><div class="line">        &#125;</div><div class="line">        return a;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><em>Byte Code</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">  Compiled from &quot;JavaByteCode.java&quot;</div><div class="line">public class com.alfod.JavaByteCode</div><div class="line">  minor version: 0</div><div class="line">  major version: 52</div><div class="line">  flags: ACC_PUBLIC, ACC_SUPER</div><div class="line">Constant pool:</div><div class="line">   #1 = Methodref          #3.#14         // java/lang/Object.&quot;&lt;init&gt;&quot;:()V</div><div class="line">   #2 = Class              #15            // com/alfod/JavaByteCode</div><div class="line">   #3 = Class              #16            // java/lang/Object</div><div class="line">   #4 = Utf8               &lt;init&gt;</div><div class="line">   #5 = Utf8               ()V</div><div class="line">   #6 = Utf8               Code</div><div class="line">   #7 = Utf8               LineNumberTable</div><div class="line">   #8 = Utf8               LocalVariableTable</div><div class="line">   #9 = Utf8               this</div><div class="line">  #10 = Utf8               Lcom/alfod/JavaByteCode;</div><div class="line">  #11 = Utf8               fun</div><div class="line">  #12 = Utf8               SourceFile</div><div class="line">  #13 = Utf8               JavaByteCode.java</div><div class="line">  #14 = NameAndType        #4:#5          // &quot;&lt;init&gt;&quot;:()V</div><div class="line">  #15 = Utf8               com/alfod/JavaByteCode</div><div class="line">  #16 = Utf8               java/lang/Object</div><div class="line">&#123;</div><div class="line">  public com.alfod.JavaByteCode();</div><div class="line">    descriptor: ()V                      // this is  the  default init function of the class , usually produced by java compiler , Types in () means the arguments  for this method , right words indicate  the return type.</div><div class="line">    flags: ACC_PUBLIC              //method&apos;s access  permission is  public</div><div class="line">    Code:</div><div class="line">      stack=1, locals=1, args_size=1    //operand stack&apos;s depth is 1 , local variable  table&apos;s length  is 1 ,   arguments of this method is 1</div><div class="line">         0: aload_0                                                    </div><div class="line">         1: invokespecial #1                  //call initialization  Method java/lang/Object.&quot;&lt;init&gt;&quot;:()V</div><div class="line">         4: return</div><div class="line">      LineNumberTable:                        //this  table store the correspondence  of line numbers between  source code and byte code</div><div class="line">        line 3: 0</div><div class="line">      LocalVariableTable:                           // as the name suggests</div><div class="line">        Start  Length  Slot  Name   Signature</div><div class="line">            0       5     0  this   Lcom/alfod/JavaByteCode;</div><div class="line"></div><div class="line"></div><div class="line">public int additionFromTo(int, int);</div><div class="line">descriptor: (II)I</div><div class="line">flags: ACC_PUBLIC</div><div class="line">Code:</div><div class="line">  stack=2, locals=4, args_size=3</div><div class="line">     0: iload_1                                   //load  the second elememt ( value of  a )  of the LocalVariableTable  onto operand stack</div><div class="line">     1: istore_3                      //store the top of  stact ( just the value of a , loaded in last instruction ) in LocalVariableTable  at the  froth index ( where stores the value of variable i );  equals code &quot; i=a&quot;</div><div class="line">     2: iload_3        //push the  forth element  ( value of variable i ) of LocalVariableTable onto stack</div><div class="line">     3: iload_2    //push the third element ( value of variable b )  of LocalVariableTable onto stack</div><div class="line">     4: if_icmpge     19           //compare the value of the top two stack ,  for this instruction ,  if the result is false ( means &quot;i &lt; b&quot; )  execute the next instruction , if the result is false ( means that &quot;i &gt;=  b&quot; )   branch to instruction at number 19  </div><div class="line">     7: iload_2                 //push the third element ( value of variable b )  of LocalVariableTable onto stack</div><div class="line">     8: iload_1             //load  the second elememt ( value of  a )  of the LocalVariableTable  onto operand stack</div><div class="line">     9: iadd            //add two ints  loaded just now  ( equivalent to &quot;b+a &quot;)</div><div class="line">    10: iload_3         //push the  forth element  ( value of variable i ) of LocalVariableTable onto stack</div><div class="line">    11: iadd             //add two ints  ( one is the result of &quot; b+a &quot; , the other is &quot;i&quot; ,  equivalent to &quot;b+a+i &quot; )</div><div class="line">    12: istore_1     //store the result at the 1 in LocalVariableTable ( where stores the value of a )</div><div class="line">    13: iinc          3, 1              // increment LocalVariableTable at index 3 by 1 ( equivalent to &quot;i++&quot; )</div><div class="line">    16: goto          2                 //jump to line 2</div><div class="line">    19: iload_1                         //  //load  the second elememt ( value of  a )  of the LocalVariableTable  onto operand stack</div><div class="line">    20: ireturn.                //return stack top ( just the value of a loaded in last instruction )</div><div class="line">  LineNumberTable:</div><div class="line">    line 6: 0     //line number 6  ( &quot;for (int i = a; i &lt; b; i++) &#123;&quot;  ) in source code  correspondence to line number 0 ( &quot; 0: iload_1&quot; ) in  byte code</div><div class="line">    line 7: 7             //line number 7  in source code (  &quot; a=b+a+i;&quot; ) correspondence to line number 7 ( &quot; iload_2  &quot;)  in  byte code   </div><div class="line">    line 6: 13           //line number 6  ( &quot;for (int i = a; i &lt; b; i++) &#123;&quot;  ) in source code  correspondence to line number 0 ( &quot;iinc          3, 1&quot;  ) in  byte code</div><div class="line">    line 9: 19               //line number 9  ( &quot; return a; &quot;  ) in source code  correspondence to line number 0 ( &quot;iload_1&quot;  ) in  byte code</div><div class="line">  LocalVariableTable:</div><div class="line">    Start  Length  Slot  Name   Signature</div><div class="line">        2      17     3     i   I</div><div class="line">        0      21     0  this   Lcom/alfod/JavaByteCode;</div><div class="line">        0      21     1     a   I</div><div class="line">        0      21     2     b   I</div><div class="line">  StackMapTable: number_of_entries = 2</div><div class="line">    frame_type = 252 /* append */</div><div class="line">      offset_delta = 2</div><div class="line">      locals = [ int ]</div><div class="line">    frame_type = 250 /* chop */</div><div class="line">      offset_delta = 16</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/jvm/" rel="tag">#jvm</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/16/spring-mvc-interceptor/" rel="next" title="HandlerInterceptorAdapter">
+                <i class="fa fa-chevron-left"></i> HandlerInterceptorAdapter
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avator.jpg"
+               alt="Arvin Alfod" />
+          <p class="site-author-name" itemprop="name">Arvin Alfod</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/arvin.alfod" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/alfod" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/arvinalfod" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/Arvin-Alfod" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Prelude"><span class="nav-number">1.</span> <span class="nav-text">Prelude</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Class-File-Structure"><span class="nav-number">2.</span> <span class="nav-text">Class File Structure</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Basic-Tools"><span class="nav-number">3.</span> <span class="nav-text">Basic Tools</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Examples"><span class="nav-number">4.</span> <span class="nav-text">Examples</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016-12 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Arvin Alfod</span>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
